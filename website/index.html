@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArenaPro Docs Skill — 让 AI Agent 带着完整ArenaPro文档写代码</title>
+<meta name="description" content="一个可安装的 Agent Skill：将 ArenaPro（神岛平台）中文文档全量接入 AI Agent，按需检索、带出处回答、指导开发工作流。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-nav" id="top">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="ArenaPro Docs Skill 首页">
+      <span class="brand-mark" aria-hidden="true">◮</span>
+      <span class="brand-name">ArenaPro Docs<span class="brand-sub">AGENT SKILL</span></span>
+    </a>
+    <nav aria-label="主导航" class="nav-links" id="nav-links">
+      <a href="#what">是什么</a>
+      <a href="#whofor">给谁用</a>
+      <a href="#capabilities">装后能做什么</a>
+      <a href="#install">安装使用</a>
+      <a href="#background">关于 ArenaPro</a>
+      <a href="#community">社区</a>
+    </nav>
+    <a class="nav-cta" href="#install">安装 Skill</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="打开菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="kicker mono">Agent Skill × ArenaPro 中文文档</p>
+        <h1>让你的 AI Agent，<br><span class="hl">先读懂文档</span>再写神岛代码。</h1>
+        <p class="lead">ArenaPro Docs Skill 把神岛平台官方中文文档（85 篇 Markdown 全量转化，含组件框架、React UI、调试、MCP 等全部章节）打包成一个可安装的 Agent Skill。装进 Agent 的技能目录后，相关提问自动触发检索：回答引用文档出处，写代码遵守官方 API，不靠模型记忆编造。</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#install">安装与使用</a>
+          <a class="btn btn-line" href="#capabilities">看它能做什么</a>
+        </div>
+        <dl class="hero-facts mono">
+          <div><dt>文档</dt><dd>85 篇官方 + 自写索引</dd></div>
+          <div><dt>检索</dt><dd>search.py 四模式</dd></div>
+          <div><dt>依赖</dt><dd>零依赖（python3）</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="agent">
+          <div class="agent-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="agent-file mono">agent session</span>
+            <span class="agent-badge mono">arenapro-docs</span>
+          </div>
+          <div class="agent-body mono">
+            <p class="msg-user"><span class="who">你</span>ArenaPro 里怎么给实体挂一个每帧更新的组件？</p>
+            <p class="msg-ask"><span class="who">Agent</span>用 <span class="fn">@component</span> 装饰器继承 <span class="ty">NodeSystem</span>，实现 <span class="fn">onUpdate</span>(dt)…</p>
+            <p class="msg-ref"><span class="ref-chip">检索</span>package/component/componentGuide/decorator.md · lifecycle.md</p>
+            <p class="msg-ask cont"><span class="who">Agent</span>注意生命周期里 <span class="kw">onCreate</span> 才能拿到子节点；HMR 改动后无需重启即可验证。</p>
+            <p class="msg-ref"><span class="ref-chip">引用</span>guide/04-development-workflow/hmr.md</p>
+          </div>
+          <div class="agent-status mono">
+            <span class="st-sync">● 文档索引已就绪</span>
+            <span>答案均带文档出处</span>
+          </div>
+        </div>
+        <div class="visual-note mono">// 不背答案，按文档检索后回答</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 是什么 ============ -->
+  <section class="section" id="what">
+    <div class="section-head">
+      <span class="sec-no mono">01</span>
+      <h2>这个 Skill 是什么</h2>
+    </div>
+    <div class="pos-grid">
+      <div class="pos-statement">
+        <p>一句话：把 ArenaPro 官方中文文档变成 AI Agent 可以按需检索、带出处引用的工作知识库。它不是文档的复制粘贴展示，而是一份带清单、索引与使用规程的 Skill——Agent 装载后知道「先查文档，再作答、再写码」。</p>
+        <p class="pos-compo mono">构成 = SKILL.md（触发条件与检索规程）+ scripts/search.py（零依赖检索）+ references/docs/（85 篇官方文档转化件 + 自写导航索引 + 2 篇原创指南）· 详见 <a class="inline-link" href="../docs-md/own/overview.md">Skill 总览</a></p>
+      </div>
+      <div class="pos-items">
+        <article class="pos-item reveal">
+          <h3>全量、结构化</h3>
+          <p>对应官方站点导航层级组织：入门、开发工作流、进阶主题、组件框架、React UI、与引擎差异、配置权限、MCP、社区。保留原文标题层级、代码块与内部链接关系。</p>
+        </article>
+        <article class="pos-item reveal">
+          <h3>按需检索，不塞满上下文</h3>
+          <p>Skill 清单先给 Agent 一张主题地图，再按问题定位到具体 md 文件读取。问 HMR 就查 HMR，不必带着全部文档陪跑。</p>
+        </article>
+        <article class="pos-item reveal">
+          <h3>答案可溯源</h3>
+          <p>回答附带文档路径出处，写出的代码示例以官方 API 章节为准。出错时人和 Agent 都能回到原文核对。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 给谁用 ============ -->
+  <section class="section" id="whofor">
+    <div class="section-head">
+      <span class="sec-no mono">02</span>
+      <h2>给谁用</h2>
+      <p class="sec-desc">只要你搭配的编程 Agent 需要理解 ArenaPro，这个 Skill 就是它的说明书。</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <span class="who-tag mono">CREATOR</span>
+        <h3>神岛创作者</h3>
+        <p>在 VSCode 里配 Copilot 类 Agent 写玩法逻辑时，让 Agent 基于真实 API 而非猜测来生成组件、React UI 与配置代码。</p>
+      </div>
+      <div class="who-card reveal">
+        <span class="who-tag mono">AGENT</span>
+        <h3>AI 编程助手 / 数字员工</h3>
+        <p>作为 QoderWake 等 Agent 平台的技能装载，用于答疑群、工单机器人、内部知识助手等需要 ArenaPro 领域知识的场景。</p>
+      </div>
+      <div class="who-card reveal">
+        <span class="who-tag mono">TEAM</span>
+        <h3>团队与工具作者</h3>
+        <p>围绕 ArenaPro 做脚手架、CI 或 MCP 工具链的团队，可以直接复用这套 md 知识库作为机器可读的事实源。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 装后能做什么 ============ -->
+  <section class="section section-tone" id="capabilities">
+    <div class="section-head">
+      <span class="sec-no mono">03</span>
+      <h2>装上之后，Agent 能做什么</h2>
+      <p class="sec-desc">能力边界就是文档边界——下面每一项都对应 docs-md 里的真实章节。</p>
+    </div>
+    <ul class="cap-grid" role="list">
+      <li class="cap reveal">
+        <span class="cap-no mono">C1</span>
+        <h3>带出处的文档问答</h3>
+        <p>「权限怎么授权？」「dao3Cfg 有哪些字段？」——直接定位 authority / dao3Cfg 章节作答并附文件路径。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C2</span>
+        <h3>按官方 API 写组件代码</h3>
+        <p>Component、NodeSystem、装饰器、生命周期、事件节点、时间回溯系统——生成的代码有章节依据。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C3</span>
+        <h3>编写游戏内 React UI</h3>
+        <p>环境搭建、XML 语法、Hooks、事件处理、refs、多组件组织等 reactGuide 全章可检索。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C4</span>
+        <h3>指导完整开发工作流</h3>
+        <p>从安装环境、创建项目、连接云端，到编译原理、HMR 热更新与断点调试的分步指引。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C5</span>
+        <h3>讲清与引擎的差异</h3>
+        <p>存储、资源路径、对话框、自定义实体、远程通道、体素等 difference 章节逐条对照。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C6</span>
+        <h3>NPM 生态实践建议</h3>
+        <p>本地包、发布共享包，以及 zod、remeda、gl-matrix、simplex-noise 等在 ArenaPro 下的用法。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C7</span>
+        <h3>自动化测试与规范</h3>
+        <p>进阶主题中的测试、Lint 与格式化、代码复用与通信约定等最佳实践可直接引用。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C8</span>
+        <h3>MCP 协同</h3>
+        <p>结合官方 MCP 工具章节，把知识库问答模式接入支持 MCP 的客户端。</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ 04 安装与使用 ============ -->
+  <section class="section" id="install">
+    <div class="section-head">
+      <span class="sec-no mono">04</span>
+      <h2>安装与使用</h2>
+      <p class="sec-desc">Skill 是自包含目录 <code>skill/arenapro-docs/</code>（SKILL.md + scripts/search.py + references/docs/），拷贝即装。完整说明见 <a class="inline-link" href="../docs-md/own/installation-and-usage.md">安装与使用指南</a>。</p>
+    </div>
+    <div class="start-grid">
+      <div class="start-steps">
+        <div class="start-step">
+          <span class="start-idx mono">1</span>
+          <div>
+            <h3>拷贝进技能目录</h3>
+            <p>项目级（仅当前项目）或用户级（该用户全部会话），任选其一：</p>
+            <pre class="term mono"><code># 项目级
+$ mkdir -p &lt;项目根&gt;/.qoder/skills
+$ cp -R arenapro-project/skill/arenapro-docs &lt;项目根&gt;/.qoder/skills/
+
+# 用户级
+$ cp -R arenapro-project/skill/arenapro-docs ~/.qoderwake/qodercli/skills/</code></pre>
+            <p class="step-note">QoderWake 数字员工可在平台 Skill 管理入口挂载同一目录。</p>
+          </div>
+        </div>
+        <div class="start-step">
+          <span class="start-idx mono">2</span>
+          <div>
+            <h3>重载并确认装载</h3>
+            <p>重启会话或执行 <code>/skills reload</code>，再用 <code>/skills list</code> 确认 <code>arenapro-docs</code> 已出现。</p>
+            <pre class="term mono"><code>$ python3 &lt;skill_dir&gt;/scripts/search.py --toc | head
+# 应列出全部文档的相对路径与标题</code></pre>
+          </div>
+        </div>
+        <div class="start-step">
+          <span class="start-idx mono">3</span>
+          <div>
+            <h3>提问验证</h3>
+            <p>ArenaPro 相关提问会自动触发，也可手动调用。先问一句要出处的，确认 Agent 在检索而非编造：</p>
+            <pre class="term mono"><code>/arenapro-docs 组件生命周期方法的执行顺序是什么？给出文档依据</code></pre>
+            <p class="step-note">检索四模式：<code>search.py 关键词…</code>（AND 检索）、<code>--files</code>（命中排名）、<code>--toc</code>（全站目录）、<code>--read … --lines</code>（分页读取）。</p>
+          </div>
+        </div>
+      </div>
+      <aside class="start-aside">
+        <h3 class="mono">装载自检清单</h3>
+        <table>
+          <thead><tr><th scope="col">检查项</th><th scope="col">预期</th></tr></thead>
+          <tbody>
+            <tr><td>/skills list 可见</td><td class="mono">arenapro-docs</td></tr>
+            <tr><td>--toc 输出</td><td class="mono">全量清单</td></tr>
+            <tr><td>回答附文档路径引用</td><td class="mono">必选</td></tr>
+            <tr><td>离线可用</td><td class="mono">是</td></tr>
+          </tbody>
+        </table>
+        <h3 class="mono aside-gap">保持文档最新</h3>
+        <p class="start-note">项目库 <code>docs-md/</code> 更新后无需重装。文档目录按优先级解析：<code>--docs-dir</code> 参数 &gt; 环境变量 <code>ARENAPRO_DOCS_DIR</code> &gt; Skill 内置 <code>references/docs/</code> &gt; 相邻 <code>../../docs-md/</code>。例如：</p>
+        <pre class="term mono"><code>$ export ARENAPRO_DOCS_DIR=\
+    /path/to/arenapro-project/docs-md</code></pre>
+        <a class="btn btn-solid btn-block" href="https://docs.dao3.fun/arenapro/zh/mcp/chat-only-knowledgebase.html" target="_blank" rel="noopener">了解知识库模式</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ 05 背景：ArenaPro ============ -->
+  <section class="section section-tone" id="background">
+    <div class="section-head">
+      <span class="sec-no mono">05</span>
+      <h2>背景：ArenaPro 是什么</h2>
+      <p class="sec-desc">这个 Skill 服务的对象——神岛（Dao3 Arena）平台的官方开发工具链。</p>
+    </div>
+    <div class="bg-grid">
+      <div class="bg-copy">
+        <p>ArenaPro Creator 是面向神岛游戏平台的 VSCode 扩展与开发方案：用 TypeScript 写玩法逻辑，保存即同步到云端，HMR 实时预览，<code>Alt+Q</code> 完整构建，断点调试可逐帧回溯；配套组件化框架（<code>@dao3fun/component</code>）、游戏内 React UI（<code>@dao3fun/react</code>）、NPM 包生态与 MCP 工具接入。</p>
+        <p>环境门槛很低：VS Code v1.9.0+、Node.js v20+，在扩展市场搜索 <strong>ArenaPro Creator</strong> 安装即可创建第一个项目。</p>
+      </div>
+      <ol class="flow flow-4" role="list">
+        <li class="flow-step reveal"><span class="flow-idx mono">WORKFLOW</span><h3>创建项目</h3><p>插件脚手架生成规范 TypeScript 工程。</p></li>
+        <li class="flow-step reveal"><span class="flow-idx mono">COMPILE</span><h3>编译打包</h3><p>Webpack 翻译 TS、合并资源，产出可上传成品。</p></li>
+        <li class="flow-step reveal"><span class="flow-idx mono">SYNC</span><h3>云端连接</h3><p>保存即同步神岛环境，本地线上不分家。</p></li>
+        <li class="flow-step reveal"><span class="flow-idx mono">DEBUG</span><h3>调试热更</h3><p>HMR 实时预览 + 断点回溯验证每次改动。</p></li>
+      </ol>
+    </div>
+    <div class="docs-strip">
+      <span class="docs-strip-label mono">官方文档</span>
+      <a href="https://docs.dao3.fun/arenapro/zh/" target="_blank" rel="noopener">中文站</a>
+      <a href="https://docs.dao3.fun/arenapro/en/" target="_blank" rel="noopener">English</a>
+      <a href="https://docs.box3lab.com/apapi/" target="_blank" rel="noopener">API 手册</a>
+      <span class="docs-strip-sep" aria-hidden="true">|</span>
+      <span class="docs-strip-label mono">Skill 文档</span>
+      <a href="../docs-md/own/overview.md">总览</a>
+      <a href="../docs-md/own/installation-and-usage.md">安装与使用</a>
+      <span class="docs-strip-hint mono">Skill 内置文档与在线官方文档同步校对</span>
+    </div>
+  </section>
+
+  <!-- ============ 06 社区 ============ -->
+  <section class="section" id="community">
+    <div class="section-head">
+      <span class="sec-no mono">06</span>
+      <h2>反馈与社区</h2>
+      <p class="sec-desc">Skill 的问题提给我们；ArenaPro 平台的问题，社区里也有组织。</p>
+    </div>
+    <div class="comm-grid">
+      <a class="comm-card reveal" href="https://github.com/box3lab" target="_blank" rel="noopener">
+        <h3>GitHub</h3>
+        <p>Box3Lab 组织主页——ArenaPro 插件与开源项目。Skill 或文档转化件的问题请走项目库 Issue 渠道。</p>
+        <span class="comm-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="comm-card reveal" href="https://qm.qq.com/cgi-bin/qm/qr?authKey=LteV6YzMX0xKmrQSp8%2BaNi6YUdonwyVMc44npCKlNymwnoWVZBmG5Y4S4N9RwxEP&amp;k=JeZQYLLnherYW6pGlbODkErutSmbkzr-&amp;noverify=0" target="_blank" rel="noopener">
+        <h3>创作者 QQ 群</h3>
+        <p>ArenaPro 官方创作者社区。装载 Skill 后碰到的平台问题在这里问，效率最高。</p>
+        <span class="comm-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="comm-card reveal" href="https://docs.dao3.fun/arenapro/zh/community/release-notes.html" target="_blank" rel="noopener">
+        <h3>文档时效</h3>
+        <p>平台更新日志是校对基准：官方文档有大改时，用 refresh_docs.py 重刷 docs-md 即可。</p>
+        <span class="comm-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="comm-card reveal" href="../README.md">
+        <h3>项目库</h3>
+        <p>Skill 本体、docs-md 与 QA 记录都在 arenapro-project/。装载与检索问题从安装指南查起，未覆盖的反馈给维护团队。</p>
+        <span class="comm-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 尾章 ============ -->
+  <section class="endcap">
+    <p class="endcap-kicker mono">GET STARTED</p>
+    <h2>把文档装进 Agent，把精力留给创意。</h2>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="#install">安装 Skill</a>
+      <a class="btn btn-line" href="https://docs.dao3.fun/arenapro/zh/" target="_blank" rel="noopener">在线文档</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="foot-inner">
+    <p class="foot-brand">ArenaPro Docs Skill <span class="mono">/ 基于 ArenaPro 中文文档构建</span></p>
+    <p class="foot-copy mono">Docs © Box3Lab 2024-2025</p>
+    <nav class="foot-links" aria-label="页脚导航">
+      <a href="https://docs.dao3.fun/arenapro/zh/" target="_blank" rel="noopener">中文文档</a>
+      <a href="https://docs.dao3.fun/arenapro/en/" target="_blank" rel="noopener">English</a>
+      <a href="https://github.com/box3lab" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
