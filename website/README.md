@@ -1,49 +1,39 @@
-# ArenaPro Docs Skill 官网（V2）
+# ArenaPro Docs Skill 官网
 
-介绍「我们基于 ArenaPro（an）中文文档构建的 Agent Skill」的项目官网（静态站），负责人：老攸前端。
+介绍「基于 ArenaPro 中文文档构建的 Agent Skill」的项目官网（静态站），负责人：老攸前端。仓库 `deepseekv5/arenapro-agent-skill`，Pages 发布自本目录（main 分支 /website）。
 
-> V2 定位修正：主角是 Agent Skill，ArenaPro Creator 产品降级为"背景"板块（05 节）。V1 的 ArenaPro 产品站口径已废弃。
+## 安装板块口径（收紧终版，2026-09-27）
+
+- 主体=INSTALL.md「发给 AI 的一句话」**逐字全文**（脚本核验与仓库 INSTALL.md 首段 verbatim 一致，含反引号与全部 URL）+ 「复制整段」按钮（innerText 纯文本，clipboard API + execCommand 回退，http 环境可用）。
+- 次级内容**折叠保留**（原生 details/summary，无 JS 依赖）：路径 A git / 路径 B zip、四项自检清单、docs-dir 解析优先级，注明 INSTALL.md 为单一事实源。
+- 出口按钮三个：INSTALL.md 原文（blob）、Release zip 直链、Release 页。
+
+## 链接策略
+
+- 站内已无任何 `../` 相对链接：own 两篇、社区卡仓库链接全部指向 `https://github.com/deepseekv5/arenapro-agent-skill/...`；页脚含 Pages「在线站点」自链，站内事实链接（repo/4×blob/Release 页/zip/Pages）实测全部 200。
+
+## 验证记录（收紧轮）
+
+- HTML 解析零错误、锚点完整；390px 探针在折叠关闭与展开两态均 `cw=375 / sw=375` 无溢出；references/docs 实测 89 篇与自检文案一致；逐字一致性脚本通过。
 
 ## 打开方式
 
-无需构建、无依赖，浏览器直接打开即可：
+浏览器直接打开 `index.html`，或 `python3 -m http.server 8080` 本地预览。文件：index.html / styles.css / app.js（滚动渐入、移动菜单、复制按钮）。
 
-```
-双击 index.html
-```
-
-或本地预览：
-
-```
-python3 -m http.server 8080 --directory .
-```
-
-## 文件结构
-
-| 文件 | 说明 |
-| --- | --- |
-| `index.html` | 单页站点全部内容与结构 |
-| `styles.css` | 全部样式（纸墨工程编辑风、响应式、reduced-motion） |
-| `app.js` | 滚动渐入 + 移动端菜单，无框架依赖 |
-
-## 页面板块（V2）
+## 页面板块
 
 1. Hero — 主角为 Skill，配 Agent 会话 mock（检索 + 带出处回答）
 2. 01 这个 Skill 是什么 — 全量结构化 / 按需检索 / 答案可溯源
 3. 02 给谁用 — 创作者 / AI 编程助手与数字员工 / 团队与工具作者
 4. 03 装后能做什么 — 8 项能力，逐项映射 docs-md 真实章节
-5. 04 安装与使用 — 三步装载 + 自检清单
+5. 04 安装与使用 — INSTALL.md 一句话 + 复制按钮 + 详情/zip 出口
 6. 05 背景：ArenaPro 是什么 — 产品一句话介绍 + 四步工作流 + 官方文档直达
-7. 06 反馈与社区 — GitHub（保留官方原链，404 风险已交 qa 记录）/ QQ 群 / 更新日志 / 项目库
+7. 06 反馈与社区 — Box3Lab 组织页 / QQ 群 / 文档时效 / 项目仓库
 
-## 内容来源与校对状态（QA 返工后 · 2026-09-26）
+## 历史口径存档
 
-- 口径同步：站内文档规模表述为 85 篇官方文档转化件；docs-md 全库共 89 篇 = 85 转化件 + index.md（自写导航）+ README.md + own/ 两篇原创。文档入口链接指向 `docs-md/own/overview.md` 与 `docs-md/own/installation-and-usage.md`（已实测存在）。
-- 安装板块对应 `docs-md/own/installation-and-usage.md`：项目级/用户级两种 cp 路径、`/skills reload` + `/skills list` 自检、`/arenapro-docs <问题>` 手动调用、search.py 四模式、docs-dir 四级解析优先级；「文档时效」卡引用 `scripts/refresh_docs.py`。
-- GitHub 两处链接（社区卡 + 页脚）按 QA 决定改指 `https://github.com/box3lab` 组织页（原仓库确认 404，死链记录本地留档）。
-- 社区卡文案改为 Skill 站定位（反馈渠道围绕本 Skill）。
-- QA P1 修复：新增 `.term code { color: inherit; ... }`（置于组合选择器之后），终端代码块恢复深底浅绿字，对比度实测约 10:1（AA+）。
-- QA P2 修复（390px 整页横滚）：`.start-steps`/`.start-step > div`/`.term` 显式 `min-width: 0`，并把 ≤1020/860/560px 媒体查询中三处单列 `1fr` 轨道改为 `minmax(0, 1fr)` 阻断最小内容传导；用测试同款同源 iframe 探针（390px 视口）headless Chrome 实测 `cw=375 / sw=375`、溢出元素为空。
+- 85 篇官方文档转化件；docs-md 全库共 89 篇 = 85 转化件 + index.md + README.md + own/ 两篇原创。
+- 历轮 QA 修复（term 对比度、390px 溢出）记录保留在本地 qa/；390px 溢出源（三步教程终端块）已随板块移除，探针每轮回归。
 
 ## 设计说明
 
