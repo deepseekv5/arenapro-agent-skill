@@ -36,6 +36,7 @@ description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）
 
 ## 检索工作流
 
+0. **先查自写手册**（`references/own/`，本 Skill 原创、不在 search.py 索引内，直接 Read）：`answer-playbook.md` 提供问题类型→文档路由表、检索降级阶梯、写码检查清单与出处引用规范；`skill-design.md` 解释本 Skill 设计与维护边界。常见问题可跳过检索直达路由表指定文件。
 1. **定位**：用检索脚本按关键词找文件与行号（中文或英文 API 名均可，多词为 AND）：
    ```bash
    python3 <skill_dir>/scripts/search.py 组件 生命周期
@@ -62,3 +63,4 @@ description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）
 - `scripts/search.py`：零依赖检索/读取工具（模式：关键词检索、--files、--toc、--list、--read --lines）。输出自动截断防上下文溢出。
 - `scripts/refresh_docs.py`：文档刷新工具（需 bs4/markdownify/lxml），重抓站点转化件并再生索引，不触碰 own/ 自写文档。
 - `references/docs/`：ArenaPro 中文文档全量 md（89 篇，含 frontmatter title/source；由 https://docs.dao3.fun/arenapro/zh/ VitePress 站点转化，保留层级、代码块与内链）。
+- `references/own/`：本 Skill 自写文档（非官方镜像，refresh 不覆盖）：`answer-playbook.md` 答题路由与写码检查清单、`skill-design.md` 设计手记与维护边界。
