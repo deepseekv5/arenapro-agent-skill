@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{margin:0}iframe{border:0;width:390px;height:844px}</style></head><body>
+<iframe id="f" src="../website/index.html"></iframe>
+<script>
+document.getElementById("f").addEventListener("load", function(){
+  setTimeout(function(){
+    try {
+      var d = this.contentDocument;
+      var de = d.documentElement;
+      function inScroller(el){var p=el.parentElement;while(p){var s=this.contentWindow.getComputedStyle(p);if(["auto","scroll","hidden"].includes(s.overflowX))return true;p=p.parentElement;}return false;}
+      var cw = de.clientWidth, out = [];
+      d.querySelectorAll("*").forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if (r.right > cw + 1 && r.width > 0) {
+          var st = el.scrollWidth;
+          out.push((el.tagName+"."+(typeof el.className==="string"?el.className.trim().split(/\s+/)[0]:""))+"@"+Math.round(r.right));
+        }
+      });
+      document.title = "IF390|cw="+cw+"|sw="+de.scrollWidth+"|"+out.slice(0,10).join("||");
+    } catch(e){ document.title = "BLOCKED|" + e.message; }
+  }, 1500);
+});
+</script></body></html>
