@@ -4,6 +4,10 @@
 
 ## [未发布]
 
+（暂无）
+
+## [1.1.0] - 2026-09-27
+
 ### 新增
 - 收录 Arena 官方产品/API 文档镜像 `docs-md/arena-official/`（210 篇，Apache-2.0 署名，源 box3lab/box3-product-document）
 - 场景速查表 `docs-md/own/scene-quickref.md`
