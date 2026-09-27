@@ -4,9 +4,15 @@
 
 ## [未发布]
 
-### 计划中
-- 收录 Arena 产品文档（box3-product-document / arena 目录）作为第二文档源
-- 文档站 API 章节的纳入评估
+### 新增
+- 收录 Arena 官方产品/API 文档镜像 `docs-md/arena-official/`（210 篇，Apache-2.0 署名，源 box3lab/box3-product-document）
+- 场景速查表 `docs-md/own/scene-quickref.md`
+
+### 变更
+- SKILL.md 任务导向重构：主体为「开发任务 → 该读哪几篇」双源路由表，Agent 用自带 glob/grep/read 直读文档、带出处作答；`search.py`/`refresh_docs.py` 降为可选加速器，主路径零脚本依赖
+- 安装与使用定位明确为「AI 按官方文档全自动写码改码 + 带出处问答」双能力（INSTALL.md 首段、官网安装复制块、SKILL.md 触发说明三处同步）
+- 安装自检不再要求 python：改为复述组件生命周期（onLoad → onEnable → start → update）并附出处
+- 官网文档口径统一为 300 篇（ArenaPro 中文 89 + Arena 官方镜像 210），能力板块新增官方镜像源与双源分流路由条目
 
 ## [1.0.0] - 2026-09-27
 

@@ -1,6 +1,6 @@
 ---
 name: arenapro-docs
-description: ArenaPro（神岛/dao3）与 Arena 编辑器的任务导向文档库。在 ArenaPro/Arena 项目里开发时使用：要写组件、调 HMR、发布构建、用 @dao3fun/react、配权限、接平台 API 等场景，按本文件的任务路由直接定位并通读 references/docs/ 下对应的 Markdown 文档（glob/grep/read 直读，不依赖任何脚本）。涉及 ArenaPro 插件、神岛、dao3、VSCode 游戏脚本、组件生命周期、EntityNode、HMR、npm 包、React UI、dao3Cfg、权限、MCP、Arena 编辑器、SEL、地图集成、Game*/Client* API 的问题与编码任务都应触发本 Skill；也用于查询本 Skill 的安装与使用方法。
+description: ArenaPro（神岛/dao3）与 Arena 编辑器的任务导向文档库。在 ArenaPro/Arena 项目里开发时使用：要写组件、调 HMR、发布构建、用 @dao3fun/react、配权限、接平台 API 等场景，按本文件的任务路由直接定位并通读 references/docs/ 下对应的 Markdown 文档（glob/grep/read 直读，不依赖任何脚本）。涉及 ArenaPro 插件、神岛、dao3、VSCode 游戏脚本、组件生命周期、EntityNode、HMR、npm 包、React UI、dao3Cfg、权限、MCP、Arena 编辑器、SEL、地图集成、Game*/Client* API 的问题与编码任务都应触发本 Skill——装载后你既能按官方文档在用户项目里全自动写码/改码（先读文档再动手，遵循 API 与生命周期约定），也能带出处回答开发问答；也用于查询本 Skill 的安装与使用方法。
 ---
 
 # ArenaPro / Arena 任务文档路由

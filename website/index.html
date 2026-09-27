@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArenaPro Docs Skill — 让 AI Agent 带着完整ArenaPro文档写代码</title>
-<meta name="description" content="一个可安装的 Agent Skill：将 ArenaPro 中文开发文档（89 篇）与 Arena 官方产品/API 文档镜像（210 篇）接入 AI Agent，直读带出处回答、指导开发工作流。">
+<title>ArenaPro Docs Skill — 让 AI Agent 按官方文档写码改码、带出处答疑</title>
+<meta name="description" content="一个可安装的 Agent Skill：将 ArenaPro 中文开发文档（89 篇）与 Arena 官方产品/API 文档镜像（210 篇）接入 AI Agent——按文档规范全自动写码改码，开发问答自带出处。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
@@ -40,9 +40,9 @@
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy">
-        <p class="kicker mono">Agent Skill × ArenaPro 中文文档</p>
-        <h1>让你的 AI Agent，<br><span class="hl">先读懂文档</span>再写神岛代码。</h1>
-        <p class="lead">ArenaPro Docs Skill 把 300 篇官方文档装进你的 Agent：ArenaPro 中文开发文档 89 篇 + Arena 官方产品/API 文档镜像 210 篇。装载后相关提问自动触发——Agent 用自带的文件读取能力直读文档、带出处作答、按官方 API 写码，不靠模型记忆编造。</p>
+        <p class="kicker mono">Agent Skill × ArenaPro 中文文档 × Arena 官方文档</p>
+        <h1>让你的 AI Agent，<br>先读懂文档，再<span class="hl">写码改码</span>、再答疑。</h1>
+        <p class="lead">ArenaPro Docs Skill 把 300 篇官方文档装进你的 Agent：ArenaPro 中文开发文档 89 篇 + Arena 官方产品/API 文档镜像 210 篇。装载后两种用法开箱即用——在你的项目里按官方文档规范全自动写码改码（组件、UI、事件、存档、发布，先读文档再动手），或随时提问开发问题、回答自带出处。全程不靠模型记忆编造。</p>
         <p class="unofficial mono">非官方社区项目 · 与 ArenaPro / Dao3 官方无隶属关系</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="#install">安装与使用</a>
@@ -207,7 +207,7 @@
         <span class="one-shot-label mono">发给 AI 的一句话</span>
         <button class="copy-btn" type="button" data-copy-target="one-shot-text">复制整段</button>
       </figcaption>
-      <blockquote class="one-shot-text" id="one-shot-text">请安装 ArenaPro Docs Skill：从 https://github.com/deepseekv5/arenapro-agent-skill 获取仓库（git clone，或直接下载 Release zip：https://github.com/deepseekv5/arenapro-agent-skill/releases/download/v1.0.0/arenapro-docs-skill-v1.0.0.zip ），把其中的 arenapro-docs 目录（含 SKILL.md、scripts/、references/docs/）完整放到你的技能加载目录——Qoder/QoderWake 为项目级 .qoder/skills/arenapro-docs 或用户级 ~/.qoder/skills/arenapro-docs；如你的客户端技能目录不同，请自行定位等价目录后放入。放置完成后重新加载技能（如执行 /skills reload）。然后自检：请复述 ArenaPro 组件生命周期的执行顺序——正确表现是你打开 references/docs/package/component/componentGuide/lifecycle.md 并按原文回答 onLoad → onEnable → start → update 且附出处，全程用你自带的文件读取能力，不需要运行任何脚本。安装后请直接告诉用户：现在可以直接提问 ArenaPro（神岛）开发问题，回答会自带文档出处。</blockquote>
+      <blockquote class="one-shot-text" id="one-shot-text">请安装 ArenaPro Docs Skill：从 https://github.com/deepseekv5/arenapro-agent-skill 获取仓库（git clone，或直接下载 Release zip：https://github.com/deepseekv5/arenapro-agent-skill/releases/download/v1.0.0/arenapro-docs-skill-v1.0.0.zip ），把其中的 arenapro-docs 目录（含 SKILL.md、scripts/、references/docs/）完整放到你的技能加载目录——Qoder/QoderWake 为项目级 .qoder/skills/arenapro-docs 或用户级 ~/.qoder/skills/arenapro-docs；如你的客户端技能目录不同，请自行定位等价目录后放入。放置完成后重新加载技能（如执行 /skills reload）。然后自检：请复述 ArenaPro 组件生命周期的执行顺序——正确表现是你打开 references/docs/package/component/componentGuide/lifecycle.md 并按原文回答 onLoad → onEnable → start → update 且附出处，全程用你自带的文件读取能力，不需要运行任何脚本。安装后请直接告诉用户：现在两种用法都开箱即用——你可以让我基于 ArenaPro（神岛）/Arena 官方文档在你的项目里直接写码改码（组件、UI、事件、存档、发布都按文档规范来，自动先读文档再动手），也可以随时提问开发问题，回答自带文档出处。</blockquote>
     </figure>
 
     <div class="install-more">
@@ -228,7 +228,7 @@ cp -r arenapro-agent-skill/skill/arenapro-docs ~/.qoder/skills/   # 或项目级
         <ol>
           <li>技能目录内存在 <code>SKILL.md</code> 与 <code>references/docs/</code>（约 300 篇 md：ArenaPro 中文文档 89 + Arena 官方产品文档镜像 210 + 索引/自写篇）。</li>
           <li>让 agent 复述「ArenaPro 组件生命周期执行顺序」：应通读 <code>references/docs/package/component/componentGuide/lifecycle.md</code> 答出 onLoad → onEnable → start → update 且附出处。只用文件读取能力，通过即安装成功。</li>
-          <li>可选（有 python3 时）：<code>scripts/search.py HMR</code> 作检索加速；<code>scripts/refresh_docs.py</code> 用于文档站更新后刷新快照。</li>
+          <li>功能不依赖任何脚本；<code>scripts/</code> 下两个 python 工具仅是可选便利项（search.py 检索加速、refresh_docs.py 刷新快照），跳过不影响安装与使用。</li>
           <li>跟随最新文档：项目库内设 <code>ARENAPRO_DOCS_DIR</code> 指向 docs-md 即可回指，无需重装。</li>
         </ol>
         <p class="details-note mono">以上口径以仓库 <a class="inline-link" href="https://github.com/deepseekv5/arenapro-agent-skill/blob/main/INSTALL.md" target="_blank" rel="noopener">INSTALL.md</a> 为单一事实源。</p>
