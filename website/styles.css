@@ -209,8 +209,6 @@ a { color: inherit; }
 }
 .btn-line:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
 
-.btn-block { display: block; text-align: center; margin-top: 1.2rem; }
-
 .hero-facts {
   display: flex;
   gap: 2.4rem;
@@ -531,89 +529,6 @@ a { color: inherit; }
 
 .flow-link:hover { border-bottom-color: var(--accent); }
 
-/* ---------------- 04 快速上手 ---------------- */
-
-.start-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: start;
-}
-
-.start-steps { display: grid; gap: 1.8rem; }
-
-.start-step {
-  display: grid;
-  grid-template-columns: 3.2rem minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
-}
-
-.start-idx {
-  width: 3.2rem;
-  height: 3.2rem;
-  border: 1px solid var(--ink);
-  background: var(--card);
-  display: grid;
-  place-items: center;
-  font-size: 1.15rem;
-  font-weight: 500;
-}
-
-.start-step h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
-.start-step p { font-size: 0.92rem; color: var(--ink-soft); }
-
-/* QA P2(390px)：阻断 pre.term 最小内容尺寸向网格轨道传导 */
-.start-steps { min-width: 0; }
-.start-step > div { min-width: 0; }
-.term { min-width: 0; }
-
-.term {
-  margin-top: 0.8rem;
-  background: var(--code-bg);
-  color: #9CD2BE;
-  font-size: 0.8rem;
-  padding: 0.8rem 1rem;
-  overflow-x: auto;
-  border-left: 3px solid var(--accent);
-}
-
-.start-aside {
-  background: var(--card);
-  border: 1px solid var(--line);
-  padding: 1.8rem;
-}
-
-.start-aside h3 {
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  color: var(--ink-faint);
-  margin-bottom: 1.2rem;
-}
-
-.start-aside table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-
-.start-aside th {
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--ink-faint);
-  border-bottom: 1px solid var(--ink);
-  padding: 0.35rem 0.5rem 0.45rem 0;
-}
-
-.start-aside td {
-  padding: 0.55rem 0.5rem 0.55rem 0;
-  border-bottom: 1px solid var(--line-soft);
-}
-
-.start-note {
-  margin-top: 1.2rem;
-  font-size: 0.86rem;
-  color: var(--ink-soft);
-}
-
 /* ---------------- 05 文档地图 ---------------- */
 
 .docs-grid {
@@ -689,26 +604,12 @@ kbd {
 
 /* ---------------- 03/04 通用正文 code ---------------- */
 
-.pos-item code, .who-card code, .cap code, .bg-copy code, .start-step code, .doc-card code, .step-note code {
+.pos-item code, .who-card code, .cap code, .bg-copy code, .doc-card code {
   font-family: var(--font-mono);
   font-size: 0.85em;
   background: rgba(14, 95, 82, 0.08);
   padding: 0.08em 0.4em;
   color: var(--accent-ink);
-}
-
-/* 终端块内 code 不受上方正文 code 规则影响（QA P1：深底深字对比度） */
-.term code {
-  color: inherit;
-  background: transparent;
-  padding: 0;
-  font-size: inherit;
-}
-
-.step-note {
-  margin-top: 0.6rem;
-  font-size: 0.84rem;
-  color: var(--ink-faint);
 }
 
 .inline-link {
@@ -719,7 +620,152 @@ kbd {
 
 .inline-link:hover { border-bottom-color: var(--accent); }
 
-.aside-gap { margin-top: 1.6rem; }
+/* ---------------- 04 一键安装（INSTALL.md 收敛口径） ---------------- */
+
+.one-shot {
+  border: 1px solid var(--ink);
+  background: var(--card);
+  box-shadow: 10px 10px 0 rgba(28, 30, 26, 0.08);
+}
+
+.one-shot-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-2);
+}
+
+.one-shot-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--clay);
+}
+
+.copy-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.copy-btn:hover { background: var(--accent-ink); }
+.copy-btn.is-done { background: var(--accent); border-color: var(--accent); }
+
+.one-shot-text {
+  margin: 0;
+  padding: 1.5rem 1.6rem 1.7rem;
+  font-size: 0.94rem;
+  line-height: 1.9;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.one-shot-text code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: rgba(14, 95, 82, 0.08);
+  padding: 0.08em 0.4em;
+  color: var(--accent-ink);
+}
+
+.install-more {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem 1.2rem;
+}
+
+.install-more .btn { padding: 0.55rem 1.3rem; font-size: 0.88rem; }
+
+.install-more-hint {
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+}
+
+.install-details {
+  margin-top: 1.6rem;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.install-details summary {
+  cursor: pointer;
+  padding: 0.9rem 1.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.install-details summary::-webkit-details-marker { display: none; }
+
+.install-details summary::before {
+  content: "+";
+  display: inline-grid;
+  place-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.install-details[open] summary { border-bottom: 1px solid var(--line); }
+.install-details[open] summary::before { content: "−"; }
+
+.install-details-body {
+  padding: 1.2rem 1.4rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.install-details-body h3 {
+  font-size: 0.92rem;
+  color: var(--ink);
+  margin: 1.1rem 0 0.4rem;
+}
+
+.install-details-body h3:first-child { margin-top: 0; }
+
+.install-details-body ol { padding-left: 1.4rem; display: grid; gap: 0.3rem; }
+
+.install-details-body code, .details-note code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: rgba(14, 95, 82, 0.08);
+  padding: 0.08em 0.4em;
+  color: var(--accent-ink);
+}
+
+.code-line {
+  background: var(--code-bg);
+  color: #9CD2BE;
+  font-size: 0.78rem;
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+  border-left: 3px solid var(--accent);
+  margin: 0.4rem 0 0.2rem;
+  max-width: 100%;
+}
+
+.details-note {
+  margin-top: 1rem;
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+}
 
 /* ---------------- 05 背景 ArenaPro ---------------- */
 
@@ -901,7 +947,7 @@ kbd {
 }
 
 @media (max-width: 860px) {
-  .hero-grid, .pos-grid, .start-grid, .bg-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid, .pos-grid, .bg-grid { grid-template-columns: minmax(0, 1fr); }
   .hero-visual { margin-top: 1rem; }
   .visual-note { position: static; display: block; text-align: right; margin-top: 0.7rem; }
   .docs-strip-hint { margin-left: 0; width: 100%; }
