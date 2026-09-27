@@ -7,12 +7,12 @@
 
 ## 目录约定
 
-| 路径 | 用途 | 负责人 |
-| --- | --- | --- |
-| `docs-md/` | ArenaPro 中文文档全量 md 化产物（来源 https://docs.dao3.fun/arenapro/zh/ ） | 后端 |
-| `skill/` | 接入 ArenaPro 文档的 Agent Skill（基于 docs-md 构建） | 后端 |
-| `website/` | ArenaPro AI Agent 官网（静态站，专业风格，避免模板化 AI 味） | 老攸前端 |
-| `qa/` | 验收记录与测试报告（本地留档，不随仓库分发） | 测试 |
+| 路径 | 用途 | 
+| --- | --- |
+| `docs-md/` | ArenaPro 中文文档全量 md 化产物（来源 https://docs.dao3.fun/arenapro/zh/ ）
+| `skill/` | 接入 ArenaPro 文档的 Agent Skill（基于 docs-md 构建）
+| `website/` | ArenaPro AI Agent 官网（静态站，专业风格，避免模板化 AI 味）
+| `qa/` | 验收记录与测试报告（本地留档，不随仓库分发）
 
 ## 交付标准
 
