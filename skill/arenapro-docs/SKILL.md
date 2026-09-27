@@ -1,68 +1,86 @@
 ---
 name: arenapro-docs
-description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）官方中文文档。当问题涉及 ArenaPro、神岛、dao3、VSCode 编写 Minecraft 游戏脚本、TypeScript 世界/组件开发、组件生命周期、EntityNode、HMR 热更新、Alt+Q 构建、npm 包 (@dao3fun/react、@dao3fun/component)、React UI 钩子、dao3Cfg 配置、权限、MCP 工具、Arena 发布构建，或需要引用 docs.dao3.fun 文档原文作答时使用；Arena 编辑器产品文档与平台 API 问题（arena 用户手册、SEL、地图集成、GameWorld/ClientWorld/GamePlayerEntity 等 API、javascript 入口）走 arena-official 镜像；也用于查询本 Skill 自身的安装、接入与检索使用方法。
+description: ArenaPro（神岛/dao3）与 Arena 编辑器的任务导向文档库。在 ArenaPro/Arena 项目里开发时使用：要写组件、调 HMR、发布构建、用 @dao3fun/react、配权限、接平台 API 等场景，按本文件的任务路由直接定位并通读 references/docs/ 下对应的 Markdown 文档（glob/grep/read 直读，不依赖任何脚本）。涉及 ArenaPro 插件、神岛、dao3、VSCode 游戏脚本、组件生命周期、EntityNode、HMR、npm 包、React UI、dao3Cfg、权限、MCP、Arena 编辑器、SEL、地图集成、Game*/Client* API 的问题与编码任务都应触发本 Skill；也用于查询本 Skill 的安装与使用方法。
 ---
 
-# ArenaPro 中文文档检索
+# ArenaPro / Arena 任务文档路由
 
-## Overview
+## 这个 Skill 怎么工作
 
-本 Skill 内置 ArenaPro 官方中文文档全量 Markdown 版 + 本 Skill 自身的原创文档（来源 https://docs.dao3.fun/arenapro/zh/ ，共 89 篇），用于回答 ArenaPro/神岛开发问题、编写符合官方 API 的代码。所有回答必须基于检索到的文档原文，不得凭空臆造 API。
+内置 ArenaPro 中文文档 + Arena 官方产品文档（Apache-2.0 镜像）共 300 篇 Markdown。你的用法不是跑检索工具，而是：**判断开发任务 → 按下方路由表直接 Read 对应文件 → 依据原文作答/写码**。文档就放在本目录 `references/docs/` 下，用你自带的文件能力（glob、grep、read）即可，任何环境都工作。路由表没覆盖时，按「目录地图与命名规律」自行定位，再不通读兜底协议。
 
-## 文档目录结构
+## 开发任务 → 该读哪几篇（主路由表）
 
-文档位于 `references/docs/`（相对本 SKILL.md；站点首页为纯 hero 落地页，导航请看 references/docs/README.md 与 index.md）。先用检索脚本定位，再按需读取，禁止一次性读入多篇全文。
+路径均相对 `references/docs/`。写码任务先读路由列出的篇目再动手。
 
-| 路径 | 内容 |
+### ArenaPro 插件工具链（VSCode 开发）
+
+| 你要做的事 | 直接读 |
 | --- | --- |
-| `index.md` / `README.md` | 站点首页与全站导航索引（章节树） |
-| `guide/01-introduction/` | 插件简介、创作者工具箱 |
-| `guide/02-getting-started/` | 安装、创建项目、连接云端调试 |
-| `guide/03-basic-tutorial/` | Hello World、TS vs JS、Arena 差异 |
-| `guide/04-development-workflow/` | HMR、断点调试、Debug/Release 编译原理 |
-| `guide/05-best-practices/` | 代码复用、通信约定 |
-| `guide/06-advanced-topics/` | JSON 数据、资源管理、i18n、npm 包、webpack、gl-matrix、remeda、zod、pathfinding、自动化测试、环境变量、UI 索引、节点图 |
-| `guide/07-publishing/` | 创建与发布 NPM 项目 |
-| `package/component/componentGuide/` | 组件体系：创建、生命周期、装饰器、节点/世界事件、NodeSystem、时间、性能 |
-| `package/component/api/` | API 参考：Component、EntityNode、EventEmitter、NodeSystem、NodeTime |
-| `package/component/timeRewindSystem/` | 时间回溯系统（入门/进阶/高级/示例） |
-| `package/react/reactGuide/` | @dao3fun/react：XML 标签、hooks、refs、事件、DOM 树、TS 类型、多组件 |
-| `difference/` | ArenaPro 与 Arena 差异（dialog、voxel、storage、resourcePath、customizeEntity、remoteChannel、findChildByName） |
-| `authority/` | 权限（storage 授权） |
-| `dao3Cfg/` | dao3.cfg 配置文件与属性 |
-| `own/` | 自写文档：index 说明、overview.md（是什么/接入后能力）、installation-and-usage.md（安装/检索方法/示例/文档刷新） |
-| `mcp/` | MCP 工具：chat-only-knowledgebase 等 |
-| `arena-official/` | Arena 编辑器官方产品文档镜像 210 篇（Apache-2.0 转载，含出处）：用户手册在根层（SEL、地图集成/编辑器/功能/入门/js API），平台 API 手册在 `arena-official/api/`（Game*/Client* 类） |
-| `community/` | 社区：release notes、活动、奖励、行为准则、鸣谢 |
+| 第一次配置环境 / 连不上云端 | `guide/02-getting-started/01-install.md`、`guide/02-getting-started/02-create-project.md`、`guide/02-getting-started/03-connect-to-cloud.md` |
+| 跑通第一个世界 / 理解 TS 约定 | `guide/03-basic-tutorial/01-hello-world-tutorial.md`、`guide/03-basic-tutorial/typescript-vs-javascript.md` |
+| 改了代码没生效 / 热更新配置 | `guide/04-development-workflow/hmr.md`、`guide/04-development-workflow/compilationPrinciple.md` |
+| 断点调试 / Debug 与 Release 差异 | `guide/04-development-workflow/debugger.md`、`guide/04-development-workflow/debug.md` |
+| 写/改组件：创建、销毁、装饰器 | `package/component/componentGuide/create-destroy.md`、`decorator.md`、`component.md` |
+| 组件生命周期顺序与回调 | `package/component/componentGuide/lifecycle.md` |
+| 组件访问节点/基础 API | `package/component/componentGuide/access-node-component.md`、`basic-node-api.md` |
+| 节点/世界事件通信 | `package/component/componentGuide/event-node.md`、`event-world.md`；共享数据结构约定 → `guide/05-best-practices/communicationAgreement.md`、`codeReuse.md` |
+| 节点系统、时间管理、性能优化 | `package/component/componentGuide/system.md`、`time.md`、`performance.md` |
+| 时间回溯（存档/回放） | `package/component/timeRewindSystem/timeRewindComponent.md`、`intermediateTopics.md`、`advancedTopics.md` |
+| 查组件类 API 签名 | `package/component/api/Component.md`、`EntityNode.md`、`EventEmitter.md`、`NodeSystem.md`、`NodeTime.md` |
+| 写游戏内 UI（React） | `package/react/reactGuide/setup.md`、`xml.md`、`api.md`；钩子/refs/事件 → `hooks.md`、`refs.md`、`eventHandlers.md`；进阶 → `domTree.md`、`multiComponent.md`、`tsType.md` |
+| 引入 npm 包 / 团队私有包 / 发包 | `guide/06-advanced-topics/npmPackage.md`、`local-npm-package.md`、`guide/07-publishing/createNPMProject.md` |
+| 特定库用法 | `remeda.md`、`npm-zod-runtime-validation.md`、`gl-matrix.md`、`simplex-noise.md`、`pathfinding-rbush.md`（均在 `guide/06-advanced-topics/`） |
+| 数据与资源配置 | `guide/06-advanced-topics/json.md`、`resources.md`、`uploadResources.md`、`asset-synchronization.md`、`i18n.md`、`uiIndex-usage.md`、`nodeGraph.md` |
+| 构建定制 / 环境变量 / 分包 / webpack | `guide/06-advanced-topics/env.md`、`bulidName.md`、`webpackPlugins.md`、`vscode-workspace.md`、`code-linting-and-formatting.md` |
+| 导出发布到 Arena | `guide/06-advanced-topics/toArena.md` |
+| 权限与配置 | `authority/storage.md`、`dao3Cfg/file.md`、`dao3Cfg/attribute.md` |
+| Arena↔ArenaPro 写法差异（dialog/voxel/storage/resourcePath/customizeEntity/remoteChannel/findChildByName） | `difference/` 同名七篇 |
+| MCP 工具接入 | `mcp/chat-only-knowledgebase.md` |
+| 版本变更/社区 | `community/release-notes.md` 等五篇 |
 
-## 检索工作流
+### Arena 编辑器与其平台 API（arena-official/，Apache-2.0 镜像）
 
-0. **先查自写手册**（`references/own/`，本 Skill 原创、不在 search.py 索引内，直接 Read）：`answer-playbook.md` 提供问题类型→文档路由表、检索降级阶梯、写码检查清单与出处引用规范；`skill-design.md` 解释本 Skill 设计与维护边界。常见问题可跳过检索直达路由表指定文件。
-1. **定位**：用检索脚本按关键词找文件与行号（中文或英文 API 名均可，多词为 AND）：
-   ```bash
-   python3 <skill_dir>/scripts/search.py 组件 生命周期
-   python3 <skill_dir>/scripts/search.py --files HMR        # 只看命中文件排名
-   python3 <skill_dir>/scripts/search.py --toc              # 查看全部文档与标题
-   ```
-2. **读取**：只读命中最多的文件的相关段落：
-   ```bash
-   python3 <skill_dir>/scripts/search.py --read package/component/componentGuide/lifecycle.md --lines 1-80
-   ```
-   或直接 Read 该文件（`references/docs/` 下相对路径）。
-3. **无命中时降级**：换同义词（如「热更新/HMR」、「发布/publish」、「组件/component」）、用单关键词、或先读 `README.md` 导航索引人工判断章节，再在该章节目录内检索。
-4. **回答引用**：给出结论时附文档路径；每篇 frontmatter 的 `source:` 字段是官网原文链接，可向用户提供。
+| 你要做的事 | 直接读 |
+| --- | --- |
+| Arena 编辑器入门/建模/发布 | `arena-official/getting-started/create.md`、`helloWorld-models.md`、`helloWorld-code.md`、`publish.md` |
+| SEL 赛制 / 赛事地图集成 | `arena-official/SEL/sel-rules.md`、`map-Info.md`、`map-integration.md` |
+| 编辑器功能与核心概念 | `arena-official/editor/`、`arena-official/core/`、`arena-official/features/` |
+| 游戏脚本平台 API（世界/玩家/实体/UI/声音/HTTP 等） | `arena-official/api/<类名>/`，如 `api/ClientWorld/`、`api/GamePlayerEntity/`、`api/GameWorld/`、`api/ClientUI/`、`api/Sound/`、`api/RemoteChannel/`；总览 `arena-official/api/index.md` |
+| js 入口与模块机制 | `arena-official/javascriptEntry/`、`arena-official/javascriptDaoAPI/`、`arena-official/plugIns/` |
+
+双源分流：ArenaPro 插件/工具链问题走上表第一段；Arena 编辑器使用与其运行时平台 API 走 `arena-official/`。跨界问题两边都读并注明来源。
+
+## 目录地图与命名规律（路由未覆盖时自助定位）
+
+```
+references/docs/
+├── README.md            全站侧边栏导航树（拿不准先扫它）
+├── guide/0X-<主题>/     编号前缀=学习顺序：01简介 02上手 03教程 04工作流 05实践 06进阶 07发布
+├── package/component/   组件框架：componentGuide/ 教程、api/ 类参考、timeRewindSystem/ 时间回溯
+├── package/react/       @dao3fun/react：reactGuide/ 教程 + selectCode.md
+├── difference/ authority/ dao3Cfg/  差异·权限·配置，文件名=被讨论的 API 或配置项
+├── mcp/ community/      MCP 与社区
+└── arena-official/      Arena 官方产品文档镜像（README.md 载来源与许可声明）
+    ├── SEL/ core/ editor/ features/ getting-started/ javascript*/ plugIns/   用户手册
+    └── api/<Game*|Client*|Sound|RemoteChannel>/                               平台 API 手册
+```
+
+自助定位方法：① 用 glob 按上表规律缩小目录；② 用 grep 在 `references/docs/` 全树搜 API 名/中文关键词（如 `onLoad`、`热更新`、`GamePlayerEntity`）；③ 命中文档的 frontmatter 含 `title`、`source`（ArenaPro 站为 docs.dao3.fun 原文，arena-official 为 GitHub blob + site + license）。
 
 ## 使用准则
 
-- API 名称、参数、快捷键（如 `Alt+Q`）、包名（如 `@dao3fun/react`）以检索结果为准；文档含完整代码块，示例代码优先直接引用文档示例。
-- 文档为 zh-CN；用户用其他语言提问时，翻译要点但保留 API/代码原文。
-- 若文档间存在差异（如 guide 与 api 参考），以 `package/*/api/` 为准。
-- **双源分流**：ArenaPro 插件/开发工具链问题 → 根目录各章；Arena 编辑器使用与其运行时 API（写游戏脚本的 Game*/Client*）→ `arena-official/`。跨界问题两边都查并说明来源。`arena-official/` 为 Apache-2.0 授权镜像，引用时保留 frontmatter 的 source/license。
-- 若 Skill 被安装到文档目录之外的位置且需指向项目库最新 docs-md，可设环境变量 `ARENAPRO_DOCS_DIR` 或传 `--docs-dir`。
+- 先读后答：API 名、参数、快捷键（`Alt+Q`）、包名（`@dao3fun/react`）以读到的原文为准，不得臆造；示例代码优先直接引用文档示例。
+- 冲突时以 `package/*/api/` 与 `arena-official/api/` 参考章优先于教程章。
+- 引用出处：答复附文档标题 + frontmatter source URL；`arena-official/` 内容注明 Apache-2.0（box3lab/box3-product-document）。
+- 文档未覆盖 → 走 `references/own/answer-playbook.md`「未覆盖协议」：合理推断需显式声明，无从推断直说未记载。
+- 快照可能滞后官网：涉及版本行为差异时提醒可跑 `refresh_docs.py` 同步（或提示用户更新本 Skill）。
 
-## Resources
+## 可选加速器（非必需）
 
-- `scripts/search.py`：零依赖检索/读取工具（模式：关键词检索、--files、--toc、--list、--read --lines）。输出自动截断防上下文溢出。
-- `scripts/refresh_docs.py`：文档刷新工具（需 bs4/markdownify/lxml），重抓站点转化件并再生索引，不触碰 own/ 自写文档。
-- `references/docs/`：ArenaPro 中文文档全量 md（89 篇，含 frontmatter title/source；由 https://docs.dao3.fun/arenapro/zh/ VitePress 站点转化，保留层级、代码块与内链）。
-- `references/own/`：本 Skill 自写文档（非官方镜像，refresh 不覆盖）：`answer-playbook.md` 答题路由与写码检查清单、`skill-design.md` 设计手记与维护边界。
+有 python3 时可借用脚本加快定位；没有也完全不影响上面主路径：
+
+```bash
+python3 scripts/search.py <关键词...>        # AND 字面检索，输出 文件:行 + 排名
+python3 scripts/refresh_docs.py [--arena-only]  # 从两个官方源重拉快照（own/ 不被覆盖）
+```

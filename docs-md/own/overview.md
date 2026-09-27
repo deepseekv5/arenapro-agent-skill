@@ -7,28 +7,29 @@ source: 原创文档（本项目产出，非 docs.dao3.fun 原文）
 
 ## 这是什么
 
-`arenapro-docs` 是一个基于 ArenaPro 官方中文文档构建的可安装 Agent Skill。它把 https://docs.dao3.fun/arenapro/zh/ 全站 89 篇文档以 Markdown 形式内置在 Skill 包内，让任意支持 Skill 机制的 AI Agent（Qoder CLI / QoderWake 数字员工）在回答 ArenaPro、神岛（Shendao）游戏开发问题时，能够检索官方文档原文并带出处作答，而不是依赖模型的模糊记忆。
+`arenapro-docs` 是一个任务导向的文档 Skill：把 ArenaPro 官方中文文档（docs.dao3.fun/arenapro/zh，89 篇）与 Arena 官方产品文档（GitHub box3lab/box3-product-document，Apache-2.0 镜像，210 篇）整理成结构化 Markdown 内置在包内。SKILL.md 的主体是一张「开发任务 → 该读哪几篇文档」的路由表与目录地图——Agent 装载后用自带的 glob/grep/read 文件能力直接定位并通读相关文档，不依赖任何脚本或外部服务，在任何能读写文件的环境都成立。
 
-Skill 实体位于项目库 `skill/arenapro-docs/`，由三部分组成：
+Skill 实体位于仓库 `skill/arenapro-docs/`：
 
 | 组成 | 路径 | 作用 |
 | --- | --- | --- |
-| 触发与流程说明 | `SKILL.md` | frontmatter 中的 name/description 决定何时启用；正文定义检索工作流与回答准则 |
-| 检索工具 | `scripts/search.py` | 零依赖 Python 脚本，提供关键词检索、文件命中排名、目录清单、分页读取四种模式 |
-| 文档库 | `references/docs/` | ArenaPro 中文文档全量 md（本 `docs-md/` 的同步副本），每篇带 `title` 与官网 `source` |
+| 任务路由主体 | `SKILL.md` | 触发条件 + 开发场景→文档路由表 + 目录地图与命名规律 + 作答准则 |
+| 文档库 | `references/docs/` | 全部 300 篇 md（`docs-md/` 同步副本），每篇 frontmatter 带 title/source 出处 |
+| 自写手册 | `references/own/` | 写码检查清单与出处规范（answer-playbook.md）、设计手记（skill-design.md） |
+| 可选加速器 | `scripts/` | search.py 字面检索、refresh_docs.py 双源刷新——纯可选，缺 python3 不影响任何功能 |
 
 ## 为什么需要它
 
-ArenaPro 开发有大量专有约定：组件生命周期（onLoad→onEnable→start→update）、`Alt+Q` 完整构建与 HMR 热更新的分工、`@dao3fun/react` 的自定义 XML 标签与钩子、`dao3.cfg` 配置项、与 Arena 引擎的差异点（dialog、voxel、storage 等）。这些内容不在通用模型的训练语料中，直接提问容易得到臆造的 API。本 Skill 将权威文档变成 Agent 的按需上下文，回答可溯源、可核对。
+ArenaPro/Arena 开发有大量专有约定：组件生命周期（onLoad→onEnable→start→update）、`Alt+Q` 完整构建与 HMR 热更新的分工、`@dao3fun/react` 的自定义 XML 标签与钩子、`dao3.cfg` 配置、与 Arena 引擎的差异点、以及 Game*/Client* 平台 API。这些不在通用模型训练语料中，凭记忆作答必然编造 API。本 Skill 把权威原文变成 Agent 的按需上下文：装载即知道自己去哪读，回答可溯源。
 
 ## Agent 接入后能做什么
 
-1. **有据答疑**：API 用法、参数、返回值、快捷键以文档原文为准，无命中时明确告知"文档未覆盖"，不编造。
-2. **规范写码**：编写组件、React UI、事件通信代码时先检索对应章节，直接引用文档示例骨架。
-3. **带出处回答**：每篇文档 frontmatter 保留官网 URL，答复可附来源链接。
-4. **差异提醒**：涉及 Arena/ArenaPro 差异、Debug/Release 构建、权限（storage 授权）等易错点时命中 `difference/`、`authority/` 专章。
-5. **全站导航**：`--toc`/`README.md` 提供章节树，支持"某功能在哪章"类定位问题。
+1. **自主定位文档**：在 ArenaPro 项目文件夹开发时，按任务场景直接读对应 md，不需要用户指路、不需要检索工具。
+2. **有据答疑**：API、参数、快捷键以读到的原文为准，未覆盖时按「未覆盖协议」明确声明，不编造。
+3. **规范写码**：写组件/UI/事件/存档代码前先通读生命周期、事件、权限等护栏章节（路由表指定）。
+4. **带出处回答**：frontmatter 保留官方 URL（Arena 镜像另带 license/site 声明）。
+5. **双源分工**：插件工具链与 Arena 编辑器/平台 API 的分流规则内置于 SKILL.md。
 
-## 内容覆盖
+## 安装与自检
 
-与 `docs-md/` 一致，覆盖站点侧边栏全部章节：guide 七章（简介、快速上手、Hello World、开发工作流、最佳实践、进阶主题、发布）、`package/component`（组件指南 + API 参考 + 时间回溯系统）、`package/react`（React UI 指南）、`difference`（Arena 差异）、`authority`（权限）、`dao3Cfg`（配置文件）、`community`（社区）、`mcp`（MCP 工具）。代码块、表格、层级结构与内部链接均在转换时保留并经脚本校验。
+见仓库根 `INSTALL.md`（首段即为可直接复制给任意 agent 的一句话安装指令）。安装自检不需要运行任何脚本：让 agent 复述指定文档要点（例如组件生命周期顺序）即可验证。
