@@ -990,3 +990,10 @@ kbd {
   .cap-grid, .docs-grid, .comm-grid, .flow { grid-template-columns: minmax(0, 1fr); }
   .hero-facts { flex-direction: column; gap: 0.9rem; }
 }
+
+.unofficial {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--clay);
+  margin: 0 0 1.1rem;
+}
