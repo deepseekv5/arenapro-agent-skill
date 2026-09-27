@@ -39,4 +39,41 @@
       }
     });
   }
+  // 复制「发给 AI 的一句话」
+  document.querySelectorAll(".copy-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.getAttribute("data-copy-target"));
+      if (!target) return;
+      var text = target.innerText.trim();
+      var done = function (ok) {
+        btn.textContent = ok ? "已复制" : "复制失败，请手动选中";
+        btn.classList.add("is-done");
+        setTimeout(function () {
+          btn.textContent = "复制整段";
+          btn.classList.remove("is-done");
+        }, 2400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { done(true); },
+          function () { fallbackCopy(text, done); }
+        );
+      } else {
+        fallbackCopy(text, done);
+      }
+    });
+  });
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;left:-9999px;top:0";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    done(ok);
+  }
 })();
