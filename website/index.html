@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ArenaPro Docs Skill — 让 AI Agent 带着完整ArenaPro文档写代码</title>
-<meta name="description" content="一个可安装的 Agent Skill：将 ArenaPro（神岛平台）中文文档全量接入 AI Agent，按需检索、带出处回答、指导开发工作流。">
+<meta name="description" content="一个可安装的 Agent Skill：将 ArenaPro 中文开发文档（89 篇）与 Arena 官方产品/API 文档镜像（210 篇）接入 AI Agent，直读带出处回答、指导开发工作流。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
@@ -42,16 +42,16 @@
       <div class="hero-copy">
         <p class="kicker mono">Agent Skill × ArenaPro 中文文档</p>
         <h1>让你的 AI Agent，<br><span class="hl">先读懂文档</span>再写神岛代码。</h1>
-        <p class="lead">ArenaPro Docs Skill 把神岛平台官方中文文档（85 篇 Markdown 全量转化，含组件框架、React UI、调试、MCP 等全部章节）打包成一个可安装的 Agent Skill。装进 Agent 的技能目录后，相关提问自动触发检索：回答引用文档出处，写代码遵守官方 API，不靠模型记忆编造。</p>
+        <p class="lead">ArenaPro Docs Skill 把 300 篇官方文档装进你的 Agent：ArenaPro 中文开发文档 89 篇 + Arena 官方产品/API 文档镜像 210 篇。装载后相关提问自动触发——Agent 用自带的文件读取能力直读文档、带出处作答、按官方 API 写码，不靠模型记忆编造。</p>
         <p class="unofficial mono">非官方社区项目 · 与 ArenaPro / Dao3 官方无隶属关系</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="#install">安装与使用</a>
           <a class="btn btn-line" href="#capabilities">看它能做什么</a>
         </div>
         <dl class="hero-facts mono">
-          <div><dt>文档</dt><dd>85 篇官方 + 自写索引</dd></div>
-          <div><dt>检索</dt><dd>search.py 四模式</dd></div>
-          <div><dt>依赖</dt><dd>零依赖（python3）</dd></div>
+          <div><dt>文档</dt><dd>300 篇 / 双数据源</dd></div>
+          <div><dt>主路径</dt><dd>直读文档带出处</dd></div>
+          <div><dt>依赖</dt><dd>零依赖（文件读取）</dd></div>
         </dl>
       </div>
 
@@ -74,7 +74,7 @@
             <span>答案均带文档出处</span>
           </div>
         </div>
-        <div class="visual-note mono">// 不背答案，按文档检索后回答</div>
+        <div class="visual-note mono">// 不背答案，直读文档带出处</div>
       </div>
     </div>
   </section>
@@ -87,8 +87,8 @@
     </div>
     <div class="pos-grid">
       <div class="pos-statement">
-        <p>一句话：把 ArenaPro 官方中文文档变成 AI Agent 可以按需检索、带出处引用的工作知识库。它不是文档的复制粘贴展示，而是一份带清单、索引与使用规程的 Skill——Agent 装载后知道「先查文档，再作答、再写码」。</p>
-        <p class="pos-compo mono">构成 = SKILL.md（触发条件与检索规程）+ scripts/search.py（零依赖检索）+ references/docs/（85 篇官方文档转化件 + 自写导航索引 + 2 篇原创指南）· 详见 <a class="inline-link" href="https://github.com/deepseekv5/arenapro-agent-skill/blob/main/docs-md/own/overview.md" target="_blank" rel="noopener">Skill 总览</a></p>
+        <p>一句话：把 300 篇官方文档变成 AI Agent 可以直读引用、带出处作答的工作知识库。它不是文档的复制粘贴展示，而是一份带清单、路由与使用规程的 Skill——Agent 装载后知道「先读文档，再作答、再写码」。</p>
+        <p class="pos-compo mono">构成 = SKILL.md（触发条件与文档路由）+ references/docs/（ArenaPro 中文文档 89 + Arena 官方产品/API 文档镜像 210 · Apache-2.0 署名 + 索引/自写篇，共约 300 篇）+ scripts/（可选检索加速）· 详见 <a class="inline-link" href="https://github.com/deepseekv5/arenapro-agent-skill/blob/main/docs-md/own/overview.md" target="_blank" rel="noopener">Skill 总览</a></p>
       </div>
       <div class="pos-items">
         <article class="pos-item reveal">
@@ -96,8 +96,8 @@
           <p>对应官方站点导航层级组织：入门、开发工作流、进阶主题、组件框架、React UI、与引擎差异、配置权限、MCP、社区。保留原文标题层级、代码块与内部链接关系。</p>
         </article>
         <article class="pos-item reveal">
-          <h3>按需检索，不塞满上下文</h3>
-          <p>Skill 清单先给 Agent 一张主题地图，再按问题定位到具体 md 文件读取。问 HMR 就查 HMR，不必带着全部文档陪跑。</p>
+          <h3>直读定位，不塞满上下文</h3>
+          <p>SKILL.md 先给 Agent 一张双源主题地图，再由 Agent 用自带的 glob / grep / 读文件能力按任务定位具体 md 直读作答。问 HMR 就查 HMR，不必带着 300 篇陪跑；随附脚本仅是可选加速。</p>
         </article>
         <article class="pos-item reveal">
           <h3>答案可溯源</h3>
@@ -154,7 +154,7 @@
       <li class="cap reveal">
         <span class="cap-no mono">C3</span>
         <h3>编写游戏内 React UI</h3>
-        <p>环境搭建、XML 语法、Hooks、事件处理、refs、多组件组织等 reactGuide 全章可检索。</p>
+        <p>环境搭建、XML 语法、Hooks、事件处理、refs、多组件组织等 reactGuide 全章直读可溯源。</p>
       </li>
       <li class="cap reveal">
         <span class="cap-no mono">C4</span>
@@ -181,6 +181,16 @@
         <h3>MCP 协同</h3>
         <p>结合官方 MCP 工具章节，把知识库问答模式接入支持 MCP 的客户端。</p>
       </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C9</span>
+        <h3>Arena 官方产品/API 文档</h3>
+        <p>新增第二数据源：210 篇 box3lab 官方产品文档镜像（Apache-2.0 署名，源仓库逐条标注 blob 出处）。玩法机制、产品 API、Agent 问答均可溯源直读。</p>
+      </li>
+      <li class="cap reveal">
+        <span class="cap-no mono">C10</span>
+        <h3>双源分流，路由清晰</h3>
+        <p>开发工具问题走 ArenaPro 中文文档（89 篇），玩法/产品问题走 Arena 官方镜像（210 篇）——SKILL.md 与答题手册把两类问题分流得明明白白。</p>
+      </li>
     </ul>
   </section>
 
@@ -197,7 +207,7 @@
         <span class="one-shot-label mono">发给 AI 的一句话</span>
         <button class="copy-btn" type="button" data-copy-target="one-shot-text">复制整段</button>
       </figcaption>
-      <blockquote class="one-shot-text" id="one-shot-text">请安装 ArenaPro Docs Skill：从 https://github.com/deepseekv5/arenapro-agent-skill 获取仓库（git clone，或直接下载 Release zip：https://github.com/deepseekv5/arenapro-agent-skill/releases/download/v1.0.0/arenapro-docs-skill-v1.0.0.zip ），把其中的 arenapro-docs 目录（含 SKILL.md、scripts/、references/docs/）完整放到你的技能加载目录——Qoder/QoderWake 为项目级 .qoder/skills/arenapro-docs 或用户级 ~/.qoder/skills/arenapro-docs；如你的客户端技能目录不同，请自行定位等价目录后放入。放置完成后重新加载技能（如执行 /skills reload），然后运行 `python3 &lt;技能目录&gt;/scripts/search.py 时间回溯 --files` 自检：能返回带文件名的检索结果即安装成功。安装后请直接告诉用户：现在可以直接提问 ArenaPro（神岛）开发问题，回答会自带文档出处。</blockquote>
+      <blockquote class="one-shot-text" id="one-shot-text">请安装 ArenaPro Docs Skill：从 https://github.com/deepseekv5/arenapro-agent-skill 获取仓库（git clone，或直接下载 Release zip：https://github.com/deepseekv5/arenapro-agent-skill/releases/download/v1.0.0/arenapro-docs-skill-v1.0.0.zip ），把其中的 arenapro-docs 目录（含 SKILL.md、scripts/、references/docs/）完整放到你的技能加载目录——Qoder/QoderWake 为项目级 .qoder/skills/arenapro-docs 或用户级 ~/.qoder/skills/arenapro-docs；如你的客户端技能目录不同，请自行定位等价目录后放入。放置完成后重新加载技能（如执行 /skills reload）。然后自检：请复述 ArenaPro 组件生命周期的执行顺序——正确表现是你打开 references/docs/package/component/componentGuide/lifecycle.md 并按原文回答 onLoad → onEnable → start → update 且附出处，全程用你自带的文件读取能力，不需要运行任何脚本。安装后请直接告诉用户：现在可以直接提问 ArenaPro（神岛）开发问题，回答会自带文档出处。</blockquote>
     </figure>
 
     <div class="install-more">
@@ -214,15 +224,13 @@
 cp -r arenapro-agent-skill/skill/arenapro-docs ~/.qoder/skills/   # 或项目级 .qoder/skills/</code></pre>
         <h3>路径 B · 免 git 下载 zip</h3>
         <p>下载上方 Release zip，解压得到 <code>arenapro-docs/</code>，整个目录放进技能目录即可。</p>
-        <h3>安装自检</h3>
+        <h3>安装后自检</h3>
         <ol>
-          <li>技能目录内存在 <code>SKILL.md</code>、<code>scripts/search.py</code>、<code>references/docs/</code>（89 篇 md）。</li>
-          <li><code>python3 scripts/search.py --toc</code> 能列出文档目录。</li>
-          <li>关键词检索（如 <code>HMR</code>、<code>npm 包</code>）返回命中文件与排名。</li>
-          <li>直接向 Agent 提问 ArenaPro 开发问题，回答自带文档出处。</li>
+          <li>技能目录内存在 <code>SKILL.md</code> 与 <code>references/docs/</code>（约 300 篇 md：ArenaPro 中文文档 89 + Arena 官方产品文档镜像 210 + 索引/自写篇）。</li>
+          <li>让 agent 复述「ArenaPro 组件生命周期执行顺序」：应通读 <code>references/docs/package/component/componentGuide/lifecycle.md</code> 答出 onLoad → onEnable → start → update 且附出处。只用文件读取能力，通过即安装成功。</li>
+          <li>可选（有 python3 时）：<code>scripts/search.py HMR</code> 作检索加速；<code>scripts/refresh_docs.py</code> 用于文档站更新后刷新快照。</li>
+          <li>跟随最新文档：项目库内设 <code>ARENAPRO_DOCS_DIR</code> 指向 docs-md 即可回指，无需重装。</li>
         </ol>
-        <h3>保持文档最新</h3>
-        <p>文档目录按优先级解析：<code>--docs-dir</code> 参数 &gt; 环境变量 <code>ARENAPRO_DOCS_DIR</code> &gt; Skill 内置 <code>references/docs/</code> &gt; 项目库 <code>docs-md/</code>。官方文档站更新后运行 <code>scripts/refresh_docs.py</code> 刷新，无需重装 Skill。</p>
         <p class="details-note mono">以上口径以仓库 <a class="inline-link" href="https://github.com/deepseekv5/arenapro-agent-skill/blob/main/INSTALL.md" target="_blank" rel="noopener">INSTALL.md</a> 为单一事实源。</p>
       </div>
     </details>
@@ -252,6 +260,7 @@ cp -r arenapro-agent-skill/skill/arenapro-docs ~/.qoder/skills/   # 或项目级
       <a href="https://docs.dao3.fun/arenapro/zh/" target="_blank" rel="noopener">中文站</a>
       <a href="https://docs.dao3.fun/arenapro/en/" target="_blank" rel="noopener">English</a>
       <a href="https://docs.box3lab.com/apapi/" target="_blank" rel="noopener">API 手册</a>
+      <a href="https://github.com/box3lab/box3-product-document" target="_blank" rel="noopener">Arena 官方文档源（Apache-2.0）</a>
       <span class="docs-strip-sep" aria-hidden="true">|</span>
       <span class="docs-strip-label mono">Skill 文档</span>
       <a href="https://github.com/deepseekv5/arenapro-agent-skill/blob/main/docs-md/own/overview.md" target="_blank" rel="noopener">总览</a>
