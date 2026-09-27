@@ -111,3 +111,7 @@
 - 插件MCP
   - 插件MCP
   - 查询神岛知识库
+
+- Arena 官方产品文档镜像（arena-official/，Apache-2.0）
+  - [镜像说明](arena-official/README.md)
+

@@ -27,6 +27,12 @@ author: 后端（本 Skill 制作者）
 | 「多套入口/分包/环境变量」 | 入口 分包 / 环境变量 | `guide/06-advanced-topics/bulidName.md`、`guide/06-advanced-topics/env.md` |
 | 「让 AI 查文档的 MCP 方式」 | 知识库 | `mcp/chat-only-knowledgebase.md` |
 
+| 「Arena 编辑器怎么用/界面功能/发布流程」 | SEL / 地图 集成 / 编辑器 | `arena-official/SEL/sel-rules.md`、`arena-official/SEL/map-integration.md`、`arena-official/editor/`、`arena-official/features/` |
+| 「游戏脚本 API：世界/玩家/实体/UI/声音」 | GameWorld / GamePlayerEntity / ClientUI | `arena-official/api/<类名>/`（如 `api/ClientWorld/input.md`） |
+| 「js 入口/模块/Dao API」 | javascript 入口 | `arena-official/javascriptEntry/`、`arena-official/javascriptDaoAPI/` |
+
+双源分流：ArenaPro 插件工具链（VSCode/HMR/组件框架/npm）查根目录；Arena 编辑器使用与其运行时平台 API 查 `arena-official/`。跨界问题两边都查。
+
 ## 检索降级阶梯（AND 无命中时按序尝试）
 
 1. 中英互换：热更新↔HMR、组件↔component、生命周期↔lifecycle、发布↔publish、存档↔storage。

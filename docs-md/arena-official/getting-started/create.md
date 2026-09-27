@@ -1,0 +1,29 @@
+---
+title: 创建第一个地图
+source: https://github.com/box3lab/box3-product-document/blob/master/arena/getting-started/create.md
+site: https://docs.dao3.fun/arena/
+license: Apache-2.0 (box3lab/box3-product-document)
+---
+
+# 创建第一个地图
+
+## 新建地图工程
+
+启动 Creator 后，在项目列表选择“新建地图”，再选择空白模板。
+
+- 空白模板适合从零开始搭建场景。
+- 创建时选择的地图尺寸会影响后续场景规划，请按实际规模选择。
+
+创建完成后，打开工程即可进入 Arena 地图编辑器。
+
+## 认识地图工程
+
+地图工程用于继续编辑，其中包含场景、资源、UI、客户端脚本和服务端脚本。编辑过程中请定期保存。
+
+需要交付到游玩端时，导出 `.boxplay` 发布包；需要继续创作或交给协作者时，保留工程文件。两种文件用途不同，不要混用。
+
+接下来可以继续阅读：
+
+- [地形搭建](helloWorld-models.md)
+- [代码编写](helloWorld-code.md)
+- [发布第一个地图](publish.md)

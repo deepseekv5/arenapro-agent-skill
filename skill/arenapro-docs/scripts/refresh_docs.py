@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""ArenaPro 中文文档站刷新工具：重新抓取 https://docs.dao3.fun/arenapro/zh/ 并覆盖 docs-md 中的站点转化件。
+"""双源文档刷新工具：1) https://docs.dao3.fun/arenapro/zh/ VitePress 站点 → docs-md 根；2) GitHub box3lab/box3-product-document (Apache-2.0) 的 arena/ 与 api/ → docs-md/arena-official/。均只覆盖站点/镜像来源件，own/ 与 index.md 不触碰。
 
 依赖：python3 + beautifulsoup4 + markdownify + lxml（pip install beautifulsoup4 markdownify lxml）
 
 用法：
-  python3 refresh_docs.py [输出目录]     # 默认为 <本脚本>/../../docs-md（项目库布局）
-  python3 refresh_docs.py /tmp/check     # 输出到任意目录做比对
+  python3 refresh_docs.py [输出目录]        # 双源全量刷新（ArenaPro 插件站 + Arena 产品文档）
+  python3 refresh_docs.py --arena-only [目录]  # 只刷新 arena-official（GitHub tarball 源）
 
 行为说明：
 - 页面清单从站点侧边栏自动发现（无需维护链接列表）；
@@ -145,10 +145,110 @@ def md_fixups(text, blocks):
     text = re.sub(r"(@@CODEBLOCK\d{3}@@)\n?", repl, text)
     return re.sub(r"\n{3,}", "\n\n", text).strip() + "\n"
 
+# ---------- 第二文档源: box3lab/box3-product-document (Apache-2.0) ----------
+BPD = "box3lab/box3-product-document"
+BPD_BRANCH = "master"
+BPD_TARBALL = "https://codeload.github.com/%s/tar.gz/refs/heads/%s" % (BPD, BPD_BRANCH)
+BPD_BLOB = "https://github.com/%s/blob/%s/" % (BPD, BPD_BRANCH)
+
+def fetch_bpd_tar(cache):
+    import tarfile
+    tp = os.path.join(cache, "bpd.tar.gz")
+    if not (os.path.exists(tp) and os.path.getsize(tp) > 500000):
+        req = urllib.request.Request(BPD_TARBALL, headers={"User-Agent": "Mozilla/5.0 arenapro-docs-refresh"})
+        with urllib.request.urlopen(req, timeout=300) as r, open(tp, "wb") as f:
+            f.write(r.read())
+    return tarfile.open(tp, "r:gz")
+
+def bpd_convert(text, src_rel, mirror_rel, all_mirrors):
+    """Arena 产品文档 md 清洗：script/容器/链接。正文文字不改。"""
+    import posixpath
+    text = re.sub(r"<script setup>.*?</script>\s*", "", text, flags=re.S)
+    text = re.sub(r"^:::\s*(tip|warning|danger|info|details).*?$", lambda m: "**[%s]**" % m.group(1), text, flags=re.M)
+    text = re.sub(r"^:::\s*$", "---", text, flags=re.M)
+    SITE = {"arena": "https://docs.dao3.fun/arena/", "api": "https://docs.dao3.fun/api/", "voxa": "https://docs.dao3.fun/voxa/", "arenapro": "https://docs.dao3.fun/arenapro/zh/"}
+    def abs_url(p):
+        top = p.strip("/").split("/")[0]
+        if top in SITE:
+            return SITE[top] + p[len("/" + top):]
+        home = "https://docs.dao3.fun/arena/" if src_rel.startswith("arena/") else "https://docs.dao3.fun/api/"
+        return home + p.lstrip("/")
+    text = re.sub(r"\]\((/[^)\s]*)", lambda m: "](" + abs_url(m.group(1)), text)
+    text = re.sub(r'src="(/[^")\s]*)"', lambda m: 'src="%s"' % abs_url(m.group(1)), text)
+    def link(m):
+        tgt, frag = m.group(1), (m.group(2) or "")
+        if tgt.startswith(("http", "#", "/", "mailto:", "vscode:")):
+            return m.group(0)
+        resolved = posixpath.normpath(posixpath.join(posixpath.dirname(src_rel), tgt)).lstrip("/")
+        for c in (resolved, resolved + ".md", resolved + "/index.md"):
+            if c in all_mirrors:
+                rel = posixpath.relpath(all_mirrors[c], posixpath.dirname(mirror_rel))
+                return "](%s%s)" % (rel, frag)
+        return "](%s%s/%s%s)" % (BPD_BLOB, posixpath.dirname(src_rel), tgt.lstrip("./"), frag)
+    text = re.sub(r"\]\(([^)\s]+)(#[^)]*)?\)", link, text)
+    return text
+
+def bpd_title(text, rel):
+    m = re.search(r"^#\s+(.+)$", text, re.M)
+    if m:
+        return re.sub(r"<[^>]+>", "", m.group(1)).strip()
+    return posixpath_title_fallback(rel)
+
+def posixpath_title_fallback(rel):
+    import posixpath
+    b = posixpath.splitext(posixpath.basename(rel))[0]
+    return b if b != "index" else rel.split("/")[0]
+
+def refresh_arena_official(out_dir, cache):
+    import posixpath
+    tar = fetch_bpd_tar(cache)
+    members = {}
+    prefix = None
+    for tm in tar.getmembers():
+        if not tm.isfile():
+            continue
+        name = tm.name
+        if prefix is None:
+            prefix = name.split("/")[0] + "/"
+        if not name.startswith(prefix):
+            continue
+        rel = name[len(prefix):]
+        if (rel.startswith("arena/") or rel.startswith("api/")) and rel.endswith(".md") and "/defineParser/" not in rel and "/.vitepress/" not in rel:
+            members[rel] = tar.extractfile(tm).read().decode("utf-8", "ignore")
+    mirror_of = {rel: "arena-official/" + (rel[len("arena/"):] if rel.startswith("arena/") else "api/" + rel[len("api/"):]) for rel in members}
+    count = 0
+    out_base = os.path.dirname(os.path.abspath(__file__))
+    for rel, text in sorted(members.items()):
+        mirror_rel = mirror_of[rel]
+        cleaned = bpd_convert(text, rel, mirror_rel, mirror_of)
+        site = "https://docs.dao3.fun/arena/" if rel.startswith("arena/") else "https://docs.dao3.fun/api/"
+        header = "---\ntitle: %s\nsource: %s%s\nsite: %s\nlicense: Apache-2.0 (box3lab/box3-product-document)\n---\n\n" % (htmlmod.escape(bpd_title(text, rel)), BPD_BLOB, rel, site)
+        out_path = os.path.join(out_dir, mirror_rel)
+        os.makedirs(os.path.dirname(out_path) or out_dir, exist_ok=True)
+        open(out_path, "w").write(header + cleaned.strip() + "\n")
+        count += 1
+    readme = """# Arena 官方产品文档（镜像）
+
+来源：仓库 box3lab/box3-product-document（master），Apache-2.0 许可；在线版 https://docs.dao3.fun/arena/ 与 https://docs.dao3.fun/api/ 。
+
+- `arena-official/`（不含 api/ 子目录）＝ 源仓库 arena/ —— Arena 编辑器用户手册（含 SEL 规则、地图集成、编辑器、功能、javascript API 入口等）；
+- `arena-official/api/` ＝ 源仓库 api/ —— Arena 编辑器 API 手册（Game*/Client* 平台 API，AI 写码强相关，全量纳入；defineParser 为构建工具、box3api.zip 为二进制，未纳入）；
+- 转化由 refresh_docs.py 完成：加 frontmatter（title/source/site/license）、去 script 块、`:::` 容器降级为文中标记、图片与跨页链接改写；正文文字未改动。图片引用官方站绝对 URL，未本地镜像。
+"""
+    open(os.path.join(out_dir, "arena-official", "README.md"), "w").write(readme)
+    return count
+
 def main():
-    out_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "docs-md"))
+    argv = [a for a in sys.argv[1:] if not a.startswith("--")]
+    flags = [a for a in sys.argv[1:] if a.startswith("--")]
+    arena_only = "--arena-only" in flags
+    out_dir = argv[0] if argv else os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "docs-md"))
     os.makedirs(out_dir, exist_ok=True)
     cache = tempfile.mkdtemp(prefix="ap_refresh_")
+    if arena_only:
+        n = refresh_arena_official(out_dir, cache)
+        print("arena-official 镜像更新: %d 篇（源 %s@%s，Apache-2.0）。README 未动（--arena-only）。" % (n, BPD, BPD_BRANCH))
+        return
     links = discover(cache)
     md_index = {url_to_mdpath(u) for u in links} - {None}
     nav, skipped = [], []
@@ -189,14 +289,17 @@ def main():
         out_path = os.path.join(out_dir, self_md)
         os.makedirs(os.path.dirname(out_path) or out_dir, exist_ok=True)
         open(out_path, "w").write("---\ntitle: %s\nsource: %s%s\n---\n\n%s" % (htmlmod.escape(title), BASE, url, text))
+    arena_n = refresh_arena_official(out_dir, cache)
     lines = ["# ArenaPro 中文文档索引", "", "- [文档库入口与说明](index.md)"]
     for depth, label, target in nav:
         lines.append("  " * depth + "- " + ("[%s](%s)" % (label, target) if target else label))
     own = sorted(f for f in os.listdir(os.path.join(out_dir, "own"))) if os.path.isdir(os.path.join(out_dir, "own")) else []
     if own:
         lines += ["", "- 自写文档（own/）"] + ["  - [own/%s](own/%s)" % (f, f) for f in own]
+    if os.path.isdir(os.path.join(out_dir, "arena-official")):
+        lines += ["", "- Arena 官方产品文档镜像（arena-official/，Apache-2.0）", "  - [镜像说明](arena-official/README.md)"]
     open(os.path.join(out_dir, "README.md"), "w").write("\n".join(lines) + "\n")
-    print("写回站点页: %d；跳过空壳页: %s；README 已再生。" % (len(links) - len(skipped), ", ".join(skipped) or "无"))
+    print("写回站点页: %d；arena-official: %d 篇；跳过空壳页: %s；README 已再生。" % (len(links) - len(skipped), arena_n, ", ".join(skipped) or "无"))
     print("注意: 站点首页 index.md 与 ex.html 若为纯 hero/空壳会被跳过，own/ 等自写文件不受影响。")
 
 main()

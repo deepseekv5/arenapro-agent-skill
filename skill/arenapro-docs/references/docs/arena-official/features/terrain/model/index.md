@@ -1,0 +1,33 @@
+---
+title: 地形-模型
+source: https://github.com/box3lab/box3-product-document/blob/master/arena/features/terrain/model/index.md
+site: https://docs.dao3.fun/arena/
+license: Apache-2.0 (box3lab/box3-product-document)
+---
+
+# 地形-模型
+
+模型功能可以让创作者制作深度制作体素模型，实现更精细、更高自由度的美术创作。
+
+创作者可以尽情挥洒创意，将想象转化为栩栩如生的作品。
+
+模型可以作为工程资源复用，也可以按团队的资源管理方式交给其他创作者使用。
+
+### 如何搭建模型？
+1. **选择模型**：刚创建的地图项目是没有模型的，你需要自己创作一个模型，或者从个人/公共中选择一个模型。
+
+![](https://docs.dao3.fun/arena/QQ20240915-140939.png)
+
+关于创作模型，可以参考Voxa编辑器-普通模式。
+
+2. **将模型添加到地图中**：这里以公共模型为例，选择你喜欢的模型，点击模型，然后在地图点击生成。
+
+![](https://docs.dao3.fun/arena/QQ20240915-141243.png)
+
+![](https://docs.dao3.fun/arena/QQ20240915-141410.png)
+
+**创意无限，搭建多样模型**
+
+利用上述技巧，运用各式各样的模型组合将让你的世界更加丰富多彩。
+
+![](https://docs.dao3.fun/arena/QQ20240915-141537.png)

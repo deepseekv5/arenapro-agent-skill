@@ -1,6 +1,6 @@
 ---
 name: arenapro-docs
-description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）官方中文文档。当问题涉及 ArenaPro、神岛、dao3、VSCode 编写 Minecraft 游戏脚本、TypeScript 世界/组件开发、组件生命周期、EntityNode、HMR 热更新、Alt+Q 构建、npm 包 (@dao3fun/react、@dao3fun/component)、React UI 钩子、dao3Cfg 配置、权限、MCP 工具、Arena 发布构建，或需要引用 docs.dao3.fun 文档原文作答时使用；也用于查询本 Skill 自身的安装、接入与检索使用方法。
+description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）官方中文文档。当问题涉及 ArenaPro、神岛、dao3、VSCode 编写 Minecraft 游戏脚本、TypeScript 世界/组件开发、组件生命周期、EntityNode、HMR 热更新、Alt+Q 构建、npm 包 (@dao3fun/react、@dao3fun/component)、React UI 钩子、dao3Cfg 配置、权限、MCP 工具、Arena 发布构建，或需要引用 docs.dao3.fun 文档原文作答时使用；Arena 编辑器产品文档与平台 API 问题（arena 用户手册、SEL、地图集成、GameWorld/ClientWorld/GamePlayerEntity 等 API、javascript 入口）走 arena-official 镜像；也用于查询本 Skill 自身的安装、接入与检索使用方法。
 ---
 
 # ArenaPro 中文文档检索
@@ -32,6 +32,7 @@ description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）
 | `dao3Cfg/` | dao3.cfg 配置文件与属性 |
 | `own/` | 自写文档：index 说明、overview.md（是什么/接入后能力）、installation-and-usage.md（安装/检索方法/示例/文档刷新） |
 | `mcp/` | MCP 工具：chat-only-knowledgebase 等 |
+| `arena-official/` | Arena 编辑器官方产品文档镜像 210 篇（Apache-2.0 转载，含出处）：用户手册在根层（SEL、地图集成/编辑器/功能/入门/js API），平台 API 手册在 `arena-official/api/`（Game*/Client* 类） |
 | `community/` | 社区：release notes、活动、奖励、行为准则、鸣谢 |
 
 ## 检索工作流
@@ -56,6 +57,7 @@ description: 检索并接入 ArenaPro（神岛/dao3 VSCode 游戏开发插件）
 - API 名称、参数、快捷键（如 `Alt+Q`）、包名（如 `@dao3fun/react`）以检索结果为准；文档含完整代码块，示例代码优先直接引用文档示例。
 - 文档为 zh-CN；用户用其他语言提问时，翻译要点但保留 API/代码原文。
 - 若文档间存在差异（如 guide 与 api 参考），以 `package/*/api/` 为准。
+- **双源分流**：ArenaPro 插件/开发工具链问题 → 根目录各章；Arena 编辑器使用与其运行时 API（写游戏脚本的 Game*/Client*）→ `arena-official/`。跨界问题两边都查并说明来源。`arena-official/` 为 Apache-2.0 授权镜像，引用时保留 frontmatter 的 source/license。
 - 若 Skill 被安装到文档目录之外的位置且需指向项目库最新 docs-md，可设环境变量 `ARENAPRO_DOCS_DIR` 或传 `--docs-dir`。
 
 ## Resources

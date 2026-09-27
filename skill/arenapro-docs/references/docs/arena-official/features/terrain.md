@@ -1,0 +1,23 @@
+---
+title: 地形系统
+source: https://github.com/box3lab/box3-product-document/blob/master/arena/features/terrain.md
+site: https://docs.dao3.fun/arena/
+license: Apache-2.0 (box3lab/box3-product-document)
+---
+
+# 地形系统
+
+地形系统是一款集高效搭建、深度自定义与场景管理于一体的强大功能。通过其直观易用的界面，以打造出独一无二的游戏或虚拟环境。
+
+
+### [方块](https://docs.dao3.fun/arena/features/terrain/box)
+   方块功能可以让创作者快速搭地图，操作简便快捷。
+   利用编辑器的预设方块，轻松构建盆地、山脉至平原等地貌，更可创意搭建各式房屋。
+
+### [模型](https://docs.dao3.fun/arena/features/terrain/model/index)
+   模型功能可以让创作者制作深度制作体素模型，实现更精细、更高自由度的美术创作。
+   创作者可以尽情挥洒创意，将想象转化为栩栩如生的作品。
+   模型可以作为工程资源复用，也可以按团队的资源管理方式交给其他创作者使用。
+
+### [场景](https://docs.dao3.fun/arena/features/terrain/scene)
+   场景工具核心在于提供高度自定义的场景管理能力。通过直观易用的界面，创作者能够轻松设置玩家出生点、界定活动范围，并精细调控物理环境、光照效果及音频体验，为玩家打造沉浸感十足的虚拟世界。
